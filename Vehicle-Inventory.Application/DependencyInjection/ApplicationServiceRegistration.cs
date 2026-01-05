@@ -12,6 +12,7 @@ namespace Vehicle_Inventory.Application.DependencyInjection
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IVehicleService, VehicleService>();
+            services.AddScoped<ITestRideBookingService, TestRideBookingService>();
 
             return services;
         }

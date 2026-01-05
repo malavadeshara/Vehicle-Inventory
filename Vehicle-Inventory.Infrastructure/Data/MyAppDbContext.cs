@@ -1,5 +1,4 @@
 ﻿//using Microsoft.EntityFrameworkCore;
-//using Microsoft.Extensions.Configuration;
 //using Vehicle_Inventory.Domain.Entities;
 //using Vehicle_Inventory.Infrastructure.Exceptions;
 
@@ -7,7 +6,10 @@
 
 //public class MyAppDbContext : DbContext
 //{
-//    public MyAppDbContext(DbContextOptions<MyAppDbContext> options) : base(options) { }
+//    public MyAppDbContext(DbContextOptions<MyAppDbContext> options)
+//        : base(options)
+//    {
+//    }
 
 //    protected override void OnModelCreating(ModelBuilder modelBuilder)
 //    {
@@ -22,22 +24,8 @@
 //    public DbSet<VehicleDimension> VehicleDimensions => Set<VehicleDimension>();
 //    public DbSet<VehicleFeature> VehicleFeatures => Set<VehicleFeature>();
 
-
-
-//    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//    //{
-//    //    if (!optionsBuilder.IsConfigured)
-//    //    {
-//    //        //optionsBuilder.UseSqlServer("Server=LAPTOP-FFN4O190;Database=Vehicle_Inventory_Database;Trusted_Connection=True;TrustServerCertificate=True;");
-//    //        IConfigurationRoot config = new ConfigurationBuilder().
-//    //            SetBasePath(Directory.GetCurrentDirectory())
-//    //            .AddJsonFile("appsettings.json", optional: true)
-//    //            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production"}.json", optional: true)
-//    //            .Build(); var connStr = config.GetConnectionString("MyAppDbContext"); optionsBuilder.UseSqlServer(connStr);
-//    //    }
-//    //}
-
-//    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+//    public override async Task<int> SaveChangesAsync(
+//        CancellationToken cancellationToken = default)
 //    {
 //        try
 //        {
@@ -48,11 +36,6 @@
 //            throw new InfrastructureException(
 //                InfrastructureErrorCode.DatabaseUpdateFailed, ex);
 //        }
-//        //catch (DbUpdateConcurrencyException ex)
-//        //{
-//        //    throw new InfrastructureException(
-//        //        InfrastructureErrorCode.DatabaseConcurrencyFailed, ex);
-//        //}
 //        catch (Exception ex)
 //        {
 //            throw new InfrastructureException(
@@ -63,11 +46,10 @@
 
 
 
+
 using Microsoft.EntityFrameworkCore;
 using Vehicle_Inventory.Domain.Entities;
 using Vehicle_Inventory.Infrastructure.Exceptions;
-
-namespace Vehicle_Inventory.Infrastructure.Data;
 
 public class MyAppDbContext : DbContext
 {
@@ -88,6 +70,7 @@ public class MyAppDbContext : DbContext
     public DbSet<VehicleSpecification> VehicleSpecifications => Set<VehicleSpecification>();
     public DbSet<VehicleDimension> VehicleDimensions => Set<VehicleDimension>();
     public DbSet<VehicleFeature> VehicleFeatures => Set<VehicleFeature>();
+    public DbSet<TestRideBooking> TestRideBookings => Set<TestRideBooking>();
 
     public override async Task<int> SaveChangesAsync(
         CancellationToken cancellationToken = default)
@@ -95,6 +78,11 @@ public class MyAppDbContext : DbContext
         try
         {
             return await base.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            throw new InfrastructureException(
+                InfrastructureErrorCode.DatabaseConcurrencyFailed, ex);
         }
         catch (DbUpdateException ex)
         {

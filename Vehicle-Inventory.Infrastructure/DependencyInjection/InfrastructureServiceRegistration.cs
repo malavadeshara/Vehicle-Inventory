@@ -18,6 +18,7 @@ namespace Vehicle_Inventory.Infrastructure.DependencyInjection
             // Repositories
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IVehicleRepository, VehicleRepository>();
+            services.AddScoped<ITestRideBookingRepository, TestRideBookingRepository>();
             services.AddScoped<IImageStorageService, CloudinaryImageStorageService>();
 
             return services;

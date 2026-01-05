@@ -127,6 +127,12 @@ namespace Vehicle_Inventory.Domain.Exceptions
         VehicleImageUrlRequired,
         VehicleImageDisplayOrderInvalid,
 
-        VehicleSpecificationSeatingInvalid
+        VehicleSpecificationSeatingInvalid,
+
+        BookingSlotInvalid,
+        BookingOnSundayNotAllowed,
+        BookingSlotAlreadyTaken,
+        BookingAlreadyResolved,
+        BookingNotFound
     }
 }
