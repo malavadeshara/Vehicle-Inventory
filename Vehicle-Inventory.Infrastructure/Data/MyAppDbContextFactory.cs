@@ -9,7 +9,7 @@ public class MyAppDbContextFactory
     {
         var options = new DbContextOptionsBuilder<MyAppDbContext>()
             .UseSqlServer(
-                "Server=LAPTOP-FFN4O190;Database=Vehicle_Inventory_Database;Integrated Security=True;MultipleActiveResultSets=True;TrustServerCertificate=True")
+                "Server=db37382.public.databaseasp.net; Database=db37382; User Id=db37382; Password=M@l@v_1512; Encrypt=True; TrustServerCertificate=True; MultipleActiveResultSets=True;")
             .Options;
 
         return new MyAppDbContext(options);

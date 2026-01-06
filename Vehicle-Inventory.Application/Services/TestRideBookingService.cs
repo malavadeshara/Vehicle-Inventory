@@ -15,20 +15,6 @@ namespace Vehicle_Inventory.Application.Services
             _repo = repo;
         }
 
-        //public async Task<IEnumerable<SlotAvailabilityResponse>>
-        //    GetAvailableSlotsAsync(int vehicleId, DateOnly date)
-        //{
-        //    if (date.DayOfWeek == DayOfWeek.Sunday)
-        //        return Enumerable.Empty<SlotAvailabilityResponse>();
-
-        //    var unavailable = await _repo.GetUnavailableSlotsAsync(vehicleId, date);
-
-        //    return Enumerable.Range(0, 9)
-        //        .Select(i => new SlotAvailabilityResponse(
-        //            i, !unavailable.Contains(i)));
-        //}
-
-        // Service
         public async Task<IEnumerable<SlotAvailabilityResponse>> GetAvailableSlotsAsync(int vehicleId, DateOnly date)
         {
             // No slots on Sunday
@@ -77,7 +63,6 @@ namespace Vehicle_Inventory.Application.Services
                     !unavailable.Contains(i)
                 ));
         }
-
 
         public async Task CreateAsync(
             Guid userId,
