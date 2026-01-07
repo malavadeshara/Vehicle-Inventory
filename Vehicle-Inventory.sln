@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36811.4
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11312.151 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicle-Inventory.Presentation", "Vehicle-Inventory.Presentation\Vehicle-Inventory.Presentation.csproj", "{403B76CC-52F9-45FF-A856-A9B254225D14}"
 EndProject
@@ -12,6 +12,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicle-Inventory.Application", "Vehicle-Inventory.Application\Vehicle-Inventory.Application.csproj", "{EDF87060-4D58-4119-8856-83F19D806766}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vehicle-Inventory.Test", "Vehicle-Inventory.Test\Vehicle-Inventory.Test.csproj", "{4D4A5363-FCF6-4CF1-BBA2-F41220CCAA52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E21C05DF-EA0A-4AA3-9F45-10261F54ECF9}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
