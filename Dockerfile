@@ -5,7 +5,7 @@ WORKDIR /src
 COPY . .
 
 RUN dotnet restore
-RUN dotnet publish src/Vehicle_Inventory.API/Vehicle_Inventory.API.csproj \
+RUN dotnet publish src/Vehicle_Inventory.Presentation/Vehicle_Inventory.Presentation.csproj \
     -c Release -o /app/publish
 
 # -------- RUNTIME STAGE --------
@@ -18,4 +18,4 @@ ENV ASPNETCORE_URLS=http://0.0.0.0:8080
 
 EXPOSE 8080
 
-ENTRYPOINT ["dotnet", "Vehicle_Inventory.API.dll"]
+ENTRYPOINT ["dotnet", "Vehicle_Inventory.Presentation.dll"]
