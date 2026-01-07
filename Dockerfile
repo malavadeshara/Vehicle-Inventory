@@ -5,7 +5,7 @@ WORKDIR /src
 COPY . .
 
 RUN dotnet restore
-RUN dotnet publish src/Vehicle_Inventory.Presentation/Vehicle_Inventory.Presentation.csproj \
+RUN dotnet publish src/Vehicle-Inventory.Presentation/Vehicle-Inventory.Presentation.csproj \
     -c Release -o /app/publish
 
 # -------- RUNTIME STAGE --------
