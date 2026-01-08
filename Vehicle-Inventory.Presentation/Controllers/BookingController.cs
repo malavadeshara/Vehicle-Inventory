@@ -29,32 +29,23 @@ namespace Vehicle_Inventory.Presentation.Controllers
 
         [HttpGet("vehicles/{vehicleId}/slots")]
         [Authorize(Roles = "Customer")]
-        public async Task<IActionResult> GetSlots(
-        int vehicleId,
-        [FromQuery] DateTime date
-    )
+        public async Task<IActionResult> GetSlots(int vehicleId, [FromQuery] DateOnly date)
         {
-            // Convert DateTime → DateOnly
-            var dateOnly = DateOnly.FromDateTime(date);
-
-            var result = await _bookingService
-                .GetAvailableSlotsAsync(vehicleId, dateOnly);
-
+            var result = await _bookingService.GetAvailableSlotsAsync(vehicleId, date);
             return Ok(result);
         }
-        //public async Task<IActionResult> GetSlots(int vehicleId, [FromQuery] DateOnly date)
+
+        //public async Task<IActionResult> GetSlots(int vehicleId, [FromQuery] DateTime date)
         //{
-        //    Console.WriteLine($"GetSlots called with vehicleId: {vehicleId}, date: {date}");
-        //    return Ok(await _bookingService.GetAvailableSlotsAsync(vehicleId, date));
+        //    // Convert DateTime → DateOnly
+        //    var dateOnly = DateOnly.FromDateTime(date);
+
+        //    var result = await _bookingService
+        //        .GetAvailableSlotsAsync(vehicleId, dateOnly);
+
+        //    return Ok(result);
         //}
 
-
-        //[HttpGet("my")]
-        //[Authorize(Roles = "Customer")]
-        //public async Task<IActionResult> MyBookings(Guid userId)
-        //{
-        //    return Ok(await _bookingService.GetUserBookingsAsync(userId));
-        //}
 
         [HttpGet("my")]
         [Authorize(Roles = "Customer")]
