@@ -27,14 +27,8 @@ namespace Vehicle_Inventory.Presentation.Controllers
         //    return Ok(result);
         //}
 
-        [HttpGet("vehicles/{vehicleId}/slots")]
-        [Authorize(Roles = "Customer")]
-        public async Task<IActionResult> GetSlots(int vehicleId, [FromQuery] DateOnly date)
-        {
-            var result = await _bookingService.GetAvailableSlotsAsync(vehicleId, date);
-            return Ok(result);
-        }
-
+        //[HttpGet("vehicles/{vehicleId}/slots")]
+        //[Authorize(Roles = "Customer")]
         //public async Task<IActionResult> GetSlots(int vehicleId, [FromQuery] DateTime date)
         //{
         //    // Convert DateTime → DateOnly
@@ -46,6 +40,13 @@ namespace Vehicle_Inventory.Presentation.Controllers
         //    return Ok(result);
         //}
 
+        [HttpGet("vehicles/{vehicleId}/slots")]
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> GetSlots(int vehicleId, [FromQuery] DateOnly date)
+        {
+            var result = await _bookingService.GetAvailableSlotsAsync(vehicleId, date);
+            return Ok(result);
+        }
 
         [HttpGet("my")]
         [Authorize(Roles = "Customer")]

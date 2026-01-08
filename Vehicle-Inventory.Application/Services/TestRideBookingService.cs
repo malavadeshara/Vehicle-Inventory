@@ -64,50 +64,41 @@ namespace Vehicle_Inventory.Application.Services
         //        ));
         //}
 
-        public async Task<IEnumerable<SlotAvailabilityResponse>> GetAvailableSlotsAsync(
-    int vehicleId,
-    DateOnly date)
+        public async Task<IEnumerable<SlotAvailabilityResponse>> GetAvailableSlotsAsync(int vehicleId, DateOnly date)
         {
-            // No slots on Sunday
             if (date.DayOfWeek == DayOfWeek.Sunday)
                 return Enumerable.Empty<SlotAvailabilityResponse>();
 
-            // Convert DateOnly to UTC DateTime at midnight
-            var inputDateTimeUtc = date.ToDateTime(TimeOnly.MinValue);
-            var todayUtc = DateTime.UtcNow.Date;
+            var istZone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Kolkata");
+            var nowIst = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, istZone);
 
-            // Past date → no slots
-            if (inputDateTimeUtc < todayUtc)
+            var todayIst = DateOnly.FromDateTime(nowIst);
+
+            if (date < todayIst)
                 return Enumerable.Empty<SlotAvailabilityResponse>();
 
-            // Fetch unavailable slots
             var unavailable = await _repo.GetUnavailableSlotsAsync(vehicleId, date);
 
-            // Slot configuration
             const int totalSlots = 9;
-            var slotStartTime = new TimeOnly(9, 0); // 9:00 AM
+            var slotStartTime = new TimeOnly(9, 0);
             const int slotDurationMinutes = 60;
 
             var minAllowedSlotIndex = 0;
 
-            // If today → allow only slots 1 hour after current UTC time
-            if (inputDateTimeUtc == todayUtc)
+            if (date == todayIst)
             {
-                var nowUtc = DateTime.UtcNow;
-                var allowedTimeUtc = nowUtc.AddHours(1); // 1 hour buffer
+                var allowedTimeIst = nowIst.AddHours(1);
 
                 var minutesFromStart =
-                    (allowedTimeUtc.TimeOfDay - slotStartTime.ToTimeSpan()).TotalMinutes;
+                    (allowedTimeIst.TimeOfDay - slotStartTime.ToTimeSpan()).TotalMinutes;
 
                 minAllowedSlotIndex =
                     (int)Math.Ceiling(minutesFromStart / slotDurationMinutes);
 
-                // All slots are already past
                 if (minAllowedSlotIndex >= totalSlots)
                     return Enumerable.Empty<SlotAvailabilityResponse>();
             }
 
-            // Generate slots
             return Enumerable.Range(0, totalSlots)
                 .Where(i => i >= minAllowedSlotIndex)
                 .Select(i => new SlotAvailabilityResponse(
